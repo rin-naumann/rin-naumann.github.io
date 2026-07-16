@@ -25,9 +25,9 @@ VANTA.NET({
   color: 0xa78bfa,          // violet lines
   color2: 0x4cc9f0,         // cyan lines (blended with color)
   backgroundColor: 0x0a0e1f,
-  points: 11.00,
-  maxDistance: 22.00,
-  spacing: 18.00
+  points: 16.00,
+  maxDistance: 26.00,
+  spacing: 15.00
 });
 
 /* ==========================================================
