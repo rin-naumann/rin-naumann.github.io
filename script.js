@@ -2,7 +2,7 @@
    1. VANTA.JS BACKGROUND
    VANTA.NET() attaches the animated effect to the element with
    id "vanta-bg". Every option below is safe to tweak:
-     - color / color2   → line colors (try swapping in --accent-moss too)
+     - color / color2   → line colors (try swapping in --accent-gold too)
      - backgroundColor  → should match --bg-void in style.css
      - points           → how many nodes (higher = denser, slower)
      - maxDistance      → how far apart nodes can still connect
@@ -24,10 +24,7 @@ VANTA.NET({
   scaleMobile: 1.00,
   color: 0x9dd29b,           // sage green lines
   color2: 0x00ff00,          // bright green lines (blended with color)
-  backgroundColor: 0x2f342f,
-  points: 16.00,
-  maxDistance: 26.00,
-  spacing: 15.00
+  backgroundColor: 0x2f342f
 });
 
 /* ==========================================================

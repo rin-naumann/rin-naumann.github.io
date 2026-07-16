@@ -29,12 +29,6 @@
 
 * { box-sizing: border-box; }
 
-html {
-  /* no background here — #vanta-bg below carries its own fallback color,
-     which avoids browser-specific quirks with how the root element's
-     background paints the page canvas */
-}
-
 body {
   margin: 0;
   padding: 0;
