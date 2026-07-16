@@ -24,7 +24,10 @@ VANTA.NET({
   scaleMobile: 1.00,
   color: 0x9dd29b,           // sage green lines
   color2: 0x00ff00,          // bright green lines (blended with color)
-  backgroundColor: 0x2f342f // dark green background
+  backgroundColor: 0x2f342f, // dark green background
+  points: 10.00,             // how many nodes
+  maxDistance: 20.00,        // how far apart nodes can still connect
+  spacing: 15.00             // how spread out nodes are
 });
 
 /* ==========================================================
