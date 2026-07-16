@@ -22,12 +22,9 @@ VANTA.NET({
   minWidth: 200.00,
   scale: 1.00,
   scaleMobile: 1.00,
-  color: 0xa78bfa,          // violet lines
-  color2: 0x4cc9f0,         // cyan lines (blended with color)
-  backgroundColor: 0x0a0e1f,
-  points: 16.00,
-  maxDistance: 26.00,
-  spacing: 15.00
+  color: 0x9dd29b,           // sage green lines
+  color2: 0x00ff00,          // bright green lines (blended with color)
+  backgroundColor: 0x2f342f
 });
 
 /* ==========================================================

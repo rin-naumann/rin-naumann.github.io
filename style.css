@@ -6,19 +6,18 @@
    ========================================================== */
 :root {
   /* backgrounds */
-  --bg-void: #0a0e1f;
-  --panel-glass: rgba(15, 18, 38, 0.32);
-  --panel-border: rgba(167, 139, 250, 0.35);
+  --bg-void: #2f342f;
+  --panel-glass: rgba(47, 52, 47, 0.32);
+  --panel-border: rgba(157, 210, 155, 0.35);
 
-  /* gacha-banner accent colors */
-  --accent-violet: #a78bfa;  /* SSR purple */
-  --accent-cyan:   #4cc9f0;  /* Minecraft diamond */
-  --accent-gold:   #f4b942;  /* rarity gold */
-  --accent-rose:   #ff6b9d;  /* illustration accent */
+  /* brand palette — greens throughout for a cohesive, personal (not "techy") identity */
+  --accent: #9dd29b;         /* sage green — main accent + section headers */
+  --accent-bright: #00ff00;  /* pure green — button selection + hyperlinks, used sparingly */
+  --accent-moss: #6b8f5a;    /* deeper, muted green — secondary accent / "in progress" tone */
 
   /* text */
-  --text-light: #eef0fa;
-  --text-muted: #9ca3c4;
+  --text-light: #eef0eb;
+  --text-muted: #9ba89a;
 
   /* type */
   --font-display: 'Press Start 2P', monospace;
@@ -99,7 +98,7 @@ body {
   font-family: var(--font-display);
   font-size: 10px;
   letter-spacing: 2px;
-  color: var(--accent-cyan);
+  color: var(--accent);
   margin: 0 0 12px;
 }
 
@@ -109,7 +108,7 @@ body {
   line-height: 1.4;
   margin: 0 0 16px;
   color: var(--text-light);
-  text-shadow: 0 0 18px rgba(167, 139, 250, 0.55);
+  text-shadow: 0 0 18px rgba(157, 210, 155, 0.55);
 }
 
 .tagline {
@@ -143,15 +142,15 @@ body {
 
 .tab-btn:hover {
   color: var(--text-light);
-  border-color: var(--accent-cyan);
+  border-color: var(--accent);
   transform: translateY(-2px);
 }
 
 .tab-btn.is-active {
   color: var(--bg-void);
-  background: var(--accent-cyan);
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+  background: var(--accent-bright);
+  border-color: var(--accent-bright);
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.45);
 }
 
 /* ==========================================================
@@ -169,7 +168,7 @@ body {
 .section-heading {
   font-family: var(--font-display);
   font-size: 15px;
-  color: var(--accent-violet);
+  color: var(--accent);
   margin: 28px 0 6px;
 }
 
@@ -200,22 +199,18 @@ body {
 
 .card:hover {
   transform: translateY(-4px);
-  border-color: var(--accent-violet);
+  border-color: var(--accent);
 }
 
 .card-wip { border-style: dashed; opacity: 0.92; }
 
 .card-thumb {
+  display: block;
+  width: 100%;
   height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
+  object-fit: cover;
+  background: linear-gradient(135deg, rgba(157,210,155,0.18), rgba(157,210,155,0.04));
 }
-.thumb-cyan   { background: linear-gradient(135deg, rgba(76,201,240,0.25), rgba(76,201,240,0.05)); }
-.thumb-violet { background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(167,139,250,0.05)); }
-.thumb-gold   { background: linear-gradient(135deg, rgba(244,185,66,0.25), rgba(244,185,66,0.05)); }
-.thumb-rose   { background: linear-gradient(135deg, rgba(255,107,157,0.25), rgba(255,107,157,0.05)); }
 
 .card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
 
@@ -240,16 +235,23 @@ body {
   flex: 1;
 }
 
-.rarity {
+/* STATUS BADGES
+   Repurposed from a purely decorative "rarity" label into something
+   that actually communicates project state. Three values, each mapped
+   to a color with real meaning in the palette:
+     .status-done      → bright green (the "selection" color) — finished
+     .status-progress  → sage accent — actively being worked on
+     .status-prototype → muted grey-green, dashed — early/experimental */
+.status {
   font-family: var(--font-display);
   font-size: 9px;
   padding: 4px 6px;
   white-space: nowrap;
   margin-bottom: 6px;
 }
-.rarity-ssr { color: var(--accent-gold); border: 1px solid var(--accent-gold); }
-.rarity-sr  { color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
-.rarity-wip { color: var(--accent-rose); border: 1px solid var(--accent-rose); }
+.status-done      { color: var(--accent-bright); border: 1px solid var(--accent-bright); }
+.status-progress  { color: var(--accent); border: 1px solid var(--accent); }
+.status-prototype { color: var(--text-muted); border: 1px dashed var(--text-muted); }
 
 .card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
 .tag {
@@ -261,7 +263,7 @@ body {
 
 .card-link {
   font-size: 13px;
-  color: var(--accent-cyan);
+  color: var(--accent-bright);
   text-decoration: none;
 }
 .card-link:hover { text-decoration: underline; }
@@ -278,7 +280,7 @@ body {
   font-size: 13px;
 }
 .footer-links { margin-top: 10px; display: flex; gap: 18px; justify-content: center; }
-.footer-links a { color: var(--accent-violet); text-decoration: none; }
+.footer-links a { color: var(--accent-bright); text-decoration: none; }
 .footer-links a:hover { text-decoration: underline; }
 
 /* ==========================================================
