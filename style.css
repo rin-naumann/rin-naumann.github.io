@@ -30,13 +30,20 @@
 
 * { box-sizing: border-box; }
 
-html, body {
+html {
+  background: var(--bg-void); /* fallback color, visible briefly before Vanta initializes */
+}
+
+body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background: var(--bg-void);
   font-family: var(--font-body);
   color: var(--text-light);
+  /* no background-color here on purpose — a background on body paints
+     ABOVE any negative z-index children (like #vanta-bg below), even
+     though body itself isn't "positioned". Keeping body transparent
+     is what lets the fixed Vanta canvas show through. */
 }
 
 /* ==========================================================
