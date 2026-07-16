@@ -29,6 +29,12 @@
 
 * { box-sizing: border-box; }
 
+html {
+  /* no background here — #vanta-bg below carries its own fallback color,
+     which avoids browser-specific quirks with how the root element's
+     background paints the page canvas */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -292,7 +298,80 @@ body {
   .tagline { font-size: 15px; }
 }
 
-/* Respect users who've asked for less motion */
+/* ==========================================================
+   9. LIGHTBOX (illustration gallery)
+   The overlay is display:none by default and only becomes a
+   fullscreen flex container once JS adds "is-open". Everything
+   inside — image, close button, caption — lives in one small
+   fixed-position layer above the whole page (z-index: 100, well
+   above .panel's z-index: 1).
+   ========================================================== */
+
+/* hint that gallery thumbnails are clickable */
+.gallery-card { cursor: pointer; }
+.gallery-card .card-thumb { transition: transform 0.2s ease; }
+.gallery-card:hover .card-thumb { transform: scale(1.03); }
+
+.lightbox {
+  display: none;                 /* toggled to flex via .is-open in script.js */
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+
+  background: rgba(10, 12, 10, 0.88);  /* the "darken the surroundings" layer */
+  backdrop-filter: blur(4px);
+}
+
+.lightbox.is-open {
+  display: flex;
+  animation: fadeIn 0.2s ease;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.lightbox-content img {
+  display: block;
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+  border: 1px solid var(--panel-border);
+  box-shadow: 0 0 50px rgba(157, 210, 155, 0.25);
+}
+
+.lightbox-caption {
+  margin: 12px 0 0;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: -44px;
+  right: 0;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--panel-border);
+  color: var(--text-light);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.lightbox-close:hover {
+  color: var(--accent-bright);
+  border-color: var(--accent-bright);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .tab-panel, .tab-btn, .card { animation: none !important; transition: none !important; }
+  .tab-panel, .tab-btn, .card, .lightbox.is-open { animation: none !important; transition: none !important; }
 }

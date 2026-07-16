@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Name — Game Dev & Illustration Portfolio</title>
+  <title>Rico Nathaniel Tan — Game Dev & Illustration Portfolio</title>
 
   <!-- Google Fonts: Press Start 2P (true pixel font, for titles/labels only)
        and Pixelify Sans (a readable pixel-styled font, for body text) -->
@@ -17,7 +17,8 @@
   <!-- ==========================================================
        VANTA.JS BACKGROUND
        This canvas sits behind everything else (see style.css,
-       #vanta-bg is position: fixed, z-index: -1).
+       #vanta-bg is position: fixed, z-index: 0, with .panel at
+       z-index: 1 so it always stacks above).
        Vanta needs three.js loaded FIRST, then its own effect file.
        We're using the "NET" effect. Full effect list + options:
        https://www.vantajs.com/
@@ -67,11 +68,11 @@
       <div class="card-grid">
 
         <article class="card">
-          <div class="card-thumb thumb-cyan">🎮</div>
+          <img class="card-thumb" src="images/placeholder-oneshot.svg" alt="One Shot thumbnail">
           <div class="card-body">
             <div class="card-title-row">
               <h3>One Shot</h3>
-              <span class="rarity rarity-ssr">★ COMPLETE</span>
+              <span class="status status-done">★ DONE</span>
             </div>
             <p>A small, 1v1 arena FPS game focused on movement. Made for my Game Networking Midterms.</p>
             <div class="card-tags">
@@ -83,11 +84,11 @@
         </article>
 
         <article class="card">
-          <div class="card-thumb thumb-violet">⚔️</div>
+          <img class="card-thumb" src="images/placeholder-fumofactory.svg" alt="Fumo Factory thumbnail">
           <div class="card-body">
             <div class="card-title-row">
               <h3> Fumo Factory </h3>
-              <span class="rarity rarity-ssr">★ COMPLETE</span>
+              <span class="status status-done">★ DONE</span>
             </div>
             <p> A small tycoon game. Made for my Game Programming 1 Finals.</p>
             <div class="card-tags">
@@ -98,8 +99,6 @@
           </div>
         </article>
 
-
-
       </div>
 
       <h2 class="section-heading"> Work in Progress </h2>
@@ -107,11 +106,11 @@
       <div class="card-grid">
 
         <article class="card card-wip">
-          <div class="card-thumb thumb-gold">⛏️</div>
+          <img class="card-thumb" src="images/placeholder-memento.svg" alt="Project Memento thumbnail">
           <div class="card-body">
             <div class="card-title-row">
               <h3>Project Memento</h3>
-              <span class="rarity rarity-sr">★ WIP</span>
+              <span class="status status-prototype">★ PROTOTYPE</span>
             </div>
             <p>A large-scale indie-game solo project with unique turn-based combat system and roguelite mechanics. This project is only in its early stages of conceptualization and development. </p>
             <div class="card-tags">
@@ -130,7 +129,7 @@
       <div class="card-grid gallery-grid">
 
         <article class="card gallery-card">
-          <div class="card-thumb thumb-rose">🖼️</div>
+          <img class="card-thumb" src="images/placeholder-illustration-1.svg" data-full="images/placeholder-illustration-1.svg" alt="Piece Title artwork">
           <div class="card-body">
             <h3>Piece Title</h3>
             <p>Medium, year, short note.</p>
@@ -138,7 +137,7 @@
         </article>
 
         <article class="card gallery-card">
-          <div class="card-thumb thumb-violet">🖼️</div>
+          <img class="card-thumb" src="images/placeholder-illustration-2.svg" data-full="images/placeholder-illustration-2.svg" alt="Character Design artwork">
           <div class="card-body">
             <h3>Character Design</h3>
             <p>Medium, year, short note.</p>
@@ -146,7 +145,7 @@
         </article>
 
         <article class="card gallery-card">
-          <div class="card-thumb thumb-cyan">🖼️</div>
+          <img class="card-thumb" src="images/placeholder-illustration-3.svg" data-full="images/placeholder-illustration-3.svg" alt="Environment Concept artwork">
           <div class="card-body">
             <h3>Environment Concept</h3>
             <p>Medium, year, short note.</p>
@@ -162,11 +161,11 @@
       <div class="card-grid">
 
         <article class="card">
-          <div class="card-thumb thumb-gold">🧊</div>
+          <img class="card-thumb" src="images/placeholder-3d.svg" alt="3D Modelling Final Project thumbnail">
           <div class="card-body">
             <div class="card-title-row">
               <h3>3D Modelling Final Project</h3>
-              <span class="rarity rarity-sr">★ SR</span>
+              <span class="status status-progress">★ IN PROGRESS</span>
             </div>
             <p>What software, what you modelled, and what the assignment brief asked for.</p>
             <div class="card-tags">
@@ -177,11 +176,11 @@
         </article>
 
         <article class="card">
-          <div class="card-thumb thumb-rose">🎞️</div>
+          <img class="card-thumb" src="images/placeholder-animation.svg" alt="Animation Project thumbnail">
           <div class="card-body">
             <div class="card-title-row">
               <h3>Animation Project</h3>
-              <span class="rarity rarity-sr">★ SR</span>
+              <span class="status status-progress">★ IN PROGRESS</span>
             </div>
             <p>Short film / animation exercise description and what you learned.</p>
             <div class="card-tags">
@@ -195,7 +194,7 @@
     </section>
 
     <footer class="panel-footer">
-      <p>© <span id="year"></span> Your Name — built with HTML, CSS, JS &amp; Vanta.js</p>
+      <p>© <span id="year"></span> Rico Nathaniel Tan — built with HTML, CSS, JS &amp; Vanta.js</p>
       <div class="footer-links">
         <a href="#">GitHub</a>
         <a href="#">itch.io</a>
@@ -204,6 +203,22 @@
     </footer>
 
   </main>
+
+  <!-- ==========================================================
+       LIGHTBOX (illustration gallery)
+       A single reusable overlay, hidden by default (see style.css,
+       .lightbox has display: none until it gets the "is-open" class).
+       script.js fills in the image/caption and toggles that class
+       whenever a gallery thumbnail is clicked — see the LIGHTBOX
+       section in script.js for the full logic.
+       ========================================================== -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Illustration preview">
+    <div class="lightbox-content">
+      <button class="lightbox-close" aria-label="Close preview">✕</button>
+      <img id="lightbox-img" src="" alt="">
+      <p id="lightbox-caption" class="lightbox-caption"></p>
+    </div>
+  </div>
 
   <!-- ==========================================================
        SCRIPTS
