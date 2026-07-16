@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Name — Game Dev & Illustration Portfolio</title>
+
+  <!-- Google Fonts: Press Start 2P (true pixel font, for titles/labels only)
+       and Pixelify Sans (a readable pixel-styled font, for body text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ==========================================================
+       VANTA.JS BACKGROUND
+       This canvas sits behind everything else (see style.css,
+       #vanta-bg is position: fixed, z-index: -1).
+       Vanta needs three.js loaded FIRST, then its own effect file.
+       We're using the "NET" effect. Full effect list + options:
+       https://www.vantajs.com/
+       ========================================================== -->
+  <div id="vanta-bg"></div>
+
+  <!-- ==========================================================
+       MAIN GLASS PANEL
+       Everything the visitor actually reads lives in here.
+       ========================================================== -->
+  <main class="panel">
+
+    <header class="panel-header">
+      <p class="eyebrow">// PLAYER PROFILE</p>
+      <h1 class="title">Your Name</h1>
+      <p class="tagline">Game Developer &amp; Illustrator — building worlds, drawing characters, occasionally finishing things.</p>
+
+      <!-- TAB NAV
+           Each button has a data-tab attribute matching the id
+           of the <section> it should reveal. script.js reads this
+           attribute — you don't need to touch the JS to add a tab,
+           just follow the pattern (see README for the 3-step guide). -->
+      <nav class="tabs" role="tablist" aria-label="Portfolio sections">
+        <button class="tab-btn is-active" data-tab="gamedev" role="tab" aria-selected="true">
+          🎮 Game Dev
+        </button>
+        <button class="tab-btn" data-tab="illustration" role="tab" aria-selected="false">
+          🖌️ Illustration
+        </button>
+        <button class="tab-btn" data-tab="schoolwork" role="tab" aria-selected="false">
+          🧊 School Work
+        </button>
+      </nav>
+    </header>
+
+    <!-- ==========================================================
+         TAB PANELS
+         Only one is visible at a time — script.js toggles the
+         "is-active" class based on which tab button was clicked.
+         ========================================================== -->
+
+    <!-- ---------- GAME DEV ---------- -->
+    <section id="gamedev" class="tab-panel is-active">
+
+      <h2 class="section-heading">Featured Projects</h2>
+      <div class="card-grid">
+
+        <article class="card">
+          <div class="card-thumb thumb-cyan">🎮</div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3>Project Title</h3>
+              <span class="rarity rarity-ssr">★ SSR</span>
+            </div>
+            <p>Short description of a completed or near-complete game project. What engine, what genre, what makes it yours.</p>
+            <div class="card-tags">
+              <span class="tag">Godot</span>
+              <span class="tag">2D</span>
+            </div>
+            <a href="#" class="card-link">Play / View source →</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-thumb thumb-violet">⚔️</div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3>Another Project</h3>
+              <span class="rarity rarity-sr">★ SR</span>
+            </div>
+            <p>Swap this card's content, thumbnail letter/emoji, and tags for your own project.</p>
+            <div class="card-tags">
+              <span class="tag">Unity</span>
+              <span class="tag">C#</span>
+            </div>
+            <a href="#" class="card-link">Play / View source →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <h2 class="section-heading">Currently Brewing 🔧</h2>
+      <p class="section-note">Prototypes and mods in active development — unfinished on purpose, shown anyway.</p>
+      <div class="card-grid">
+
+        <article class="card card-wip">
+          <div class="card-thumb thumb-gold">⛏️</div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3>Minecraft Mod Idea</h3>
+              <span class="rarity rarity-wip">★ WIP</span>
+            </div>
+            <p>Describe the mod concept, what mechanic you're prototyping, and current progress.</p>
+            <div class="card-tags">
+              <span class="tag">Forge</span>
+              <span class="tag">Java</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card card-wip">
+          <div class="card-thumb thumb-cyan">🎰</div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3>Gacha System Prototype</h3>
+              <span class="rarity rarity-wip">★ WIP</span>
+            </div>
+            <p>A gacha/pull-rate system you're experimenting with. Talk about the pity system, rarity tiers, etc.</p>
+            <div class="card-tags">
+              <span class="tag">Unity</span>
+              <span class="tag">Systems Design</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- ILLUSTRATION ---------- -->
+    <section id="illustration" class="tab-panel">
+      <h2 class="section-heading">Gallery</h2>
+      <div class="card-grid gallery-grid">
+
+        <article class="card gallery-card">
+          <div class="card-thumb thumb-rose">🖼️</div>
+          <div class="card-body">
+            <h3>Piece Title</h3>
+            <p>Medium, year, short note.</p>
+          </div>
+        </article>
+
+        <article class="card gallery-card">
+          <div class="card-thumb thumb-violet">🖼️</div>
+          <div class="card-body">
+            <h3>Character Design</h3>
+            <p>Medium, year, short note.</p>
+          </div>
+        </article>
+
+        <article class="card gallery-card">
+          <div class="card-thumb thumb-cyan">🖼️</div>
+          <div class="card-body">
+            <h3>Environment Concept</h3>
+            <p>Medium, year, short note.</p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- SCHOOL WORK ---------- -->
+    <section id="schoolwork" class="tab-panel">
+      <h2 class="section-heading">Coursework & Final Projects</h2>
+      <div class="card-grid">
+
+        <article class="card">
+          <div class="card-thumb thumb-gold">🧊</div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3>3D Modelling Final Project</h3>
+              <span class="rarity rarity-sr">★ SR</span>
+            </div>
+            <p>What software, what you modelled, and what the assignment brief asked for.</p>
+            <div class="card-tags">
+              <span class="tag">Blender</span>
+              <span class="tag">3D Modelling</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-thumb thumb-rose">🎞️</div>
+          <div class="card-body">
+            <div class="card-title-row">
+              <h3>Animation Project</h3>
+              <span class="rarity rarity-sr">★ SR</span>
+            </div>
+            <p>Short film / animation exercise description and what you learned.</p>
+            <div class="card-tags">
+              <span class="tag">Animation</span>
+              <span class="tag">After Effects</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <footer class="panel-footer">
+      <p>© <span id="year"></span> Your Name — built with HTML, CSS, JS &amp; Vanta.js</p>
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">itch.io</a>
+        <a href="#">ArtStation</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- ==========================================================
+       SCRIPTS
+       Order matters: three.js → vanta.net.js → our own script.js
+       ========================================================== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

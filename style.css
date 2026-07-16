@@ -1,0 +1,295 @@
+/* ==========================================================
+   1. DESIGN TOKENS
+   Change colors/fonts/spacing here and it ripples everywhere.
+   This is the first place to look when you want to reskin
+   the site without touching layout code.
+   ========================================================== */
+:root {
+  /* backgrounds */
+  --bg-void: #0a0e1f;
+  --panel-glass: rgba(15, 18, 38, 0.55);
+  --panel-border: rgba(167, 139, 250, 0.35);
+
+  /* gacha-banner accent colors */
+  --accent-violet: #a78bfa;  /* SSR purple */
+  --accent-cyan:   #4cc9f0;  /* Minecraft diamond */
+  --accent-gold:   #f4b942;  /* rarity gold */
+  --accent-rose:   #ff6b9d;  /* illustration accent */
+
+  /* text */
+  --text-light: #eef0fa;
+  --text-muted: #9ca3c4;
+
+  /* type */
+  --font-display: 'Press Start 2P', monospace;
+  --font-body: 'Pixelify Sans', sans-serif;
+
+  /* pixel-notch size used on the panel & cards — see .pixel-corners */
+  --notch: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--bg-void);
+  font-family: var(--font-body);
+  color: var(--text-light);
+}
+
+/* ==========================================================
+   2. VANTA BACKGROUND CANVAS
+   Fixed + full-screen + behind everything (z-index: -1).
+   Vanta injects a <canvas> inside this div itself — you never
+   touch the canvas directly, only this wrapper.
+   ========================================================== */
+#vanta-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+/* ==========================================================
+   3. THE GLASS PANEL
+   backdrop-filter: blur(...) is what creates the "glossy glass"
+   look — it blurs whatever the Vanta animation is doing behind it.
+   ========================================================== */
+.panel {
+  position: relative;
+  max-width: 880px;
+  margin: 6vh auto 8vh;
+  padding: 40px clamp(20px, 5vw, 56px) 32px;
+
+  background: var(--panel-glass);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  border: 1px solid var(--panel-border);
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.2),
+    0 20px 60px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+/* Pixel-notched corners: a clip-path that cuts a staircase step out
+   of each corner instead of a smooth rounded corner. This is the
+   signature visual element tying the panel to the pixel-art theme.
+   Want bigger/smaller notches? Change --notch above. */
+.panel {
+  clip-path: polygon(
+    var(--notch) 0, calc(100% - var(--notch)) 0,
+    100% var(--notch), 100% calc(100% - var(--notch)),
+    calc(100% - var(--notch)) 100%, var(--notch) 100%,
+    0 calc(100% - var(--notch)), 0 var(--notch)
+  );
+}
+
+/* ==========================================================
+   4. HEADER / TITLE / TABS
+   ========================================================== */
+.panel-header { text-align: center; margin-bottom: 32px; }
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--accent-cyan);
+  margin: 0 0 12px;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 5vw, 34px);
+  line-height: 1.4;
+  margin: 0 0 16px;
+  color: var(--text-light);
+  text-shadow: 0 0 18px rgba(167, 139, 250, 0.55);
+}
+
+.tagline {
+  color: var(--text-muted);
+  font-size: 18px;
+  max-width: 520px;
+  margin: 0 auto 28px;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+
+  /* small pixel-notch on the buttons too, echoing the panel */
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+}
+
+.tab-btn:hover {
+  color: var(--text-light);
+  border-color: var(--accent-cyan);
+  transform: translateY(-2px);
+}
+
+.tab-btn.is-active {
+  color: var(--bg-void);
+  background: var(--accent-cyan);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+}
+
+/* ==========================================================
+   5. TAB PANELS
+   Only the one with .is-active is shown. See script.js.
+   ========================================================== */
+.tab-panel { display: none; animation: fadeIn 0.25s ease; }
+.tab-panel.is-active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-heading {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--accent-violet);
+  margin: 28px 0 6px;
+}
+
+.section-note {
+  color: var(--text-muted);
+  font-size: 15px;
+  margin: 0 0 18px;
+}
+
+/* ==========================================================
+   6. PROJECT CARDS
+   ========================================================== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 18px;
+  margin-bottom: 8px;
+}
+
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent-violet);
+}
+
+.card-wip { border-style: dashed; opacity: 0.92; }
+
+.card-thumb {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+.thumb-cyan   { background: linear-gradient(135deg, rgba(76,201,240,0.25), rgba(76,201,240,0.05)); }
+.thumb-violet { background: linear-gradient(135deg, rgba(167,139,250,0.25), rgba(167,139,250,0.05)); }
+.thumb-gold   { background: linear-gradient(135deg, rgba(244,185,66,0.25), rgba(244,185,66,0.05)); }
+.thumb-rose   { background: linear-gradient(135deg, rgba(255,107,157,0.25), rgba(255,107,157,0.05)); }
+
+.card-body { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+
+.card-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.card-body h3 {
+  font-size: 16px;
+  margin: 0 0 6px;
+  color: var(--text-light);
+}
+
+.card-body p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 12px;
+  flex: 1;
+}
+
+.rarity {
+  font-family: var(--font-display);
+  font-size: 9px;
+  padding: 4px 6px;
+  white-space: nowrap;
+  margin-bottom: 6px;
+}
+.rarity-ssr { color: var(--accent-gold); border: 1px solid var(--accent-gold); }
+.rarity-sr  { color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+.rarity-wip { color: var(--accent-rose); border: 1px solid var(--accent-rose); }
+
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.tag {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.06);
+  padding: 3px 8px;
+}
+
+.card-link {
+  font-size: 13px;
+  color: var(--accent-cyan);
+  text-decoration: none;
+}
+.card-link:hover { text-decoration: underline; }
+
+/* ==========================================================
+   7. FOOTER
+   ========================================================== */
+.panel-footer {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.footer-links { margin-top: 10px; display: flex; gap: 18px; justify-content: center; }
+.footer-links a { color: var(--accent-violet); text-decoration: none; }
+.footer-links a:hover { text-decoration: underline; }
+
+/* ==========================================================
+   8. RESPONSIVE
+   ========================================================== */
+@media (max-width: 560px) {
+  .panel { margin: 3vh 12px 5vh; padding: 28px 18px 24px; }
+  .tab-btn { font-size: 14px; padding: 8px 14px; }
+  .tagline { font-size: 15px; }
+}
+
+/* Respect users who've asked for less motion */
+@media (prefers-reduced-motion: reduce) {
+  .tab-panel, .tab-btn, .card { animation: none !important; transition: none !important; }
+}
