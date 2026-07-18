@@ -219,27 +219,21 @@
       <h2 class="section-heading">Miscellaneous</h2>
       <div class="card-grid">
 
-        <article class="card">
-          <img class="card-thumb" src="images/placeholder-3d.svg" alt="3D Modelling Final Project thumbnail">
-          <div class="card-body">
-            <div class="card-title-row">
-              <h3>3D Modelling Final Project</h3>
-              <span class="status status-progress">★ IN PROGRESS</span>
-            </div>
-            <p>3D modelling project for school. This was my first time attempting 3D modelling. As of making this page, I'm still working on it.</p>
-            <div class="card-tags">
-              <span class="tag">Autodesk Maya</span>
-              <span class="tag">3D Modelling</span>
-            </div>
+        <article class="card lightbox-card">
+          <div class="thumb-wrap">
+            <video
+              class="card-thumb"
+              data-video="videos/video_clip_1.mp4"
+              src="videos/video_clip_1.mp4"
+              autoplay muted loop playsinline
+              aria-label="Animation Project preview — click to view full size">
+            </video>
+            <span class="play-badge" aria-hidden="true">⛶</span>
           </div>
-        </article>
-
-        <article class="card">
-          <img class="card-thumb" src="images/placeholder-animation.svg" alt="Animation Project thumbnail">
           <div class="card-body">
             <div class="card-title-row">
               <h3>Animation Project</h3>
-              <span class="status status-progress">★ COMPLETE</span>
+              <span class="status status-done">★ COMPLETE</span>
             </div>
             <p>Animation project for school. This was my first time attempting rigged animation.</p>
             <div class="card-tags">
@@ -334,17 +328,18 @@
   </main>
 
   <!-- ==========================================================
-       LIGHTBOX (illustration gallery)
+       LIGHTBOX (illustration gallery + video)
        A single reusable overlay, hidden by default (see style.css,
        .lightbox has display: none until it gets the "is-open" class).
-       script.js fills in the image/caption and toggles that class
-       whenever a gallery thumbnail is clicked — see the LIGHTBOX
+       script.js fills in the image OR video and caption, and toggles
+       that class whenever a thumbnail is clicked — see the LIGHTBOX
        section in script.js for the full logic.
        ========================================================== -->
-  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Illustration preview">
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Media preview">
     <div class="lightbox-content">
       <button class="lightbox-close" aria-label="Close preview">✕</button>
       <img id="lightbox-img" src="" alt="">
+      <video id="lightbox-video" controls playsinline></video>
       <p id="lightbox-caption" class="lightbox-caption"></p>
     </div>
   </div>

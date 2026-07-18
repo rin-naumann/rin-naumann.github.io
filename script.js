@@ -64,33 +64,64 @@ tabButtons.forEach((button) => {
 });
 
 /* ==========================================================
-   4. LIGHTBOX (illustration gallery)
-   Clicking a gallery thumbnail fills the hidden #lightbox overlay
-   with that image and adds "is-open" (see style.css section 9,
-   which is what actually makes it appear + darkens the page).
-   It closes on: clicking the ✕, clicking the dark backdrop itself
-   (NOT the image), or pressing Escape.
+   4. LIGHTBOX (illustration gallery + video)
+   Clicking a thumbnail fills the hidden #lightbox overlay with
+   either an image or a video and adds "is-open" (see style.css
+   section 9, which is what actually makes it appear + darkens
+   the page). It closes on: clicking the ✕, clicking the dark
+   backdrop itself (NOT the media), or pressing Escape.
 
-   TO USE ON A DIFFERENT SET OF IMAGES:
-   Just add the "gallery-card" class to any other card, and give its
-   <img> a data-full="path/to/bigger-image.jpg" attribute pointing
-   at a higher-resolution version. If you skip data-full, it falls
-   back to the thumbnail's own src.
+   TO USE ON A DIFFERENT IMAGE:
+   Add the "gallery-card" (or "lightbox-card") class to any card,
+   and give its <img> a data-full="path/to/bigger-image.jpg"
+   attribute pointing at a higher-resolution version. Skipping
+   data-full just falls back to the thumbnail's own src.
+
+   TO USE ON A VIDEO INSTEAD (see the Animation Project card):
+   1. Give the <article> the "lightbox-card" class, same as above.
+   2. Add data-video="path/to/clip.mp4" to the thumbnail element.
+      Its presence is what tells this script to open the video player
+      instead of the image viewer — you don't need to touch this file
+      to add more video cards.
+   3. The thumbnail itself can be either:
+      a) an <img> (a static poster frame) — clicking it plays the full
+         video only inside the lightbox, or
+      b) a <video autoplay muted loop playsinline> — this makes it
+         preview/loop quietly right in the grid, AND still opens the
+         full version (with sound, via the same data-video attribute)
+         in the lightbox when clicked. This is what Animation Project
+         uses.
+   4. (Optional) Wrap the thumbnail in a <div class="thumb-wrap"> with
+      a sibling <span class="play-badge">▶</span> or ⛶ right after it,
+      for a hover hint — see style.css section 9.
    ========================================================== */
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
+const lightboxVideo = document.getElementById("lightbox-video");
 const lightboxCaption = document.getElementById("lightbox-caption");
 const lightboxClose = document.querySelector(".lightbox-close");
-const galleryCards = document.querySelectorAll(".gallery-card");
+const lightboxCards = document.querySelectorAll(".gallery-card, .lightbox-card");
 
 function openLightbox(card) {
-  const img = card.querySelector(".card-thumb");
+  const thumb = card.querySelector(".card-thumb");
   const title = card.querySelector("h3")?.textContent.trim() || "";
+  const videoSrc = thumb.dataset.video;
 
-  lightboxImg.src = img.dataset.full || img.src;
-  lightboxImg.alt = img.alt;
+  if (videoSrc) {
+    // VIDEO MODE: hide the image element, show + load + play the video
+    lightboxImg.style.display = "none";
+    lightboxVideo.style.display = "block";
+    lightboxVideo.src = videoSrc;
+    lightboxVideo.play();
+  } else {
+    // IMAGE MODE: hide the video element, show the image
+    lightboxVideo.style.display = "none";
+    lightboxImg.style.display = "block";
+    lightboxImg.src = thumb.dataset.full || thumb.src;
+    lightboxImg.alt = thumb.alt;
+  }
+
   lightboxCaption.textContent = title;
-
   lightbox.classList.add("is-open");
   document.body.style.overflow = "hidden"; // stop background scrolling while open
 }
@@ -98,15 +129,21 @@ function openLightbox(card) {
 function closeLightbox() {
   lightbox.classList.remove("is-open");
   document.body.style.overflow = "";
+
+  // stop playback and unload the video so it doesn't keep running
+  // (or downloading) silently behind the closed overlay
+  lightboxVideo.pause();
+  lightboxVideo.removeAttribute("src");
+  lightboxVideo.load();
 }
 
-galleryCards.forEach((card) => {
+lightboxCards.forEach((card) => {
   card.addEventListener("click", () => openLightbox(card));
 });
 
 lightboxClose.addEventListener("click", closeLightbox);
 
-// clicking the dark backdrop (but not the image/caption itself) closes it
+// clicking the dark backdrop (but not the media/caption itself) closes it
 lightbox.addEventListener("click", (event) => {
   if (event.target === lightbox) closeLightbox();
 });

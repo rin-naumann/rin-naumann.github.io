@@ -39,7 +39,8 @@ body {
 
 /* ==========================================================
    2. VANTA BACKGROUND CANVAS
-   Fixed + full-screen + behind everything (z-index: -1).
+   Fixed + full-screen + behind everything (z-index: 0, with
+   .panel at z-index: 1 so it always stacks above).
    Vanta injects a <canvas> inside this div itself — you never
    touch the canvas directly, only this wrapper.
    ========================================================== */
@@ -293,18 +294,41 @@ body {
 }
 
 /* ==========================================================
-   9. LIGHTBOX (illustration gallery)
+   9. LIGHTBOX (illustration gallery + video)
    The overlay is display:none by default and only becomes a
    fullscreen flex container once JS adds "is-open". Everything
-   inside — image, close button, caption — lives in one small
+   inside — media, close button, caption — lives in one small
    fixed-position layer above the whole page (z-index: 100, well
    above .panel's z-index: 1).
    ========================================================== */
 
-/* hint that gallery thumbnails are clickable */
-.gallery-card { cursor: pointer; }
-.gallery-card .card-thumb { transition: transform 0.2s ease; }
-.gallery-card:hover .card-thumb { transform: scale(1.03); }
+/* hint that gallery thumbnails (and any other lightbox-enabled card) are clickable */
+.gallery-card, .lightbox-card { cursor: pointer; }
+.gallery-card .card-thumb, .lightbox-card .card-thumb { transition: transform 0.2s ease; }
+.gallery-card:hover .card-thumb, .lightbox-card:hover .card-thumb { transform: scale(1.03); }
+
+/* PLAY BUTTON / EXPAND BADGE OVERLAY (video cards only)
+   Requires wrapping the thumbnail in a ".thumb-wrap" div — see the
+   Animation Project card in index.html for the pattern. Any card
+   thumbnail without this wrapper simply won't show a badge. Use "▶"
+   if the thumbnail is a static poster <img> (click to play), or "⛶"
+   if the thumbnail is itself an autoplaying <video> (click to expand). */
+.thumb-wrap { position: relative; height: 120px; overflow: hidden; }
+.thumb-wrap .card-thumb { height: 100%; }
+.play-badge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: var(--text-light);
+  background: rgba(10, 12, 10, 0.35);
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  pointer-events: none; /* clicks pass through to the card/media beneath */
+}
+.lightbox-card:hover .play-badge { opacity: 1; }
 
 .lightbox {
   display: none;                 /* toggled to flex via .is-open in script.js */
@@ -330,7 +354,8 @@ body {
   max-height: 90vh;
 }
 
-.lightbox-content img {
+.lightbox-content img,
+.lightbox-content video {
   display: block;
   max-width: 90vw;
   max-height: 80vh;
@@ -338,6 +363,10 @@ body {
   border: 1px solid var(--panel-border);
   box-shadow: 0 0 50px rgba(157, 210, 155, 0.25);
 }
+
+/* both start hidden — script.js shows whichever one the clicked
+   card actually needs (image vs. video) and leaves the other hidden */
+#lightbox-img, #lightbox-video { display: none; }
 
 .lightbox-caption {
   margin: 12px 0 0;
